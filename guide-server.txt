@@ -1,0 +1,54 @@
+INSTALAR MYSQL en NODE.JS 
+
+npm install mysql 
+
+INSTALAR NODEMON 
+npm install nodemon 
+
+CONFIGURACION package.json
+
+"type":"module"
+
+NODEMON 
+{
+"script":{
+....
+"start":"nodemon index.js "
+}
+}
+
+EJECUCION NODEMON
+
+npm start
+
+
+----CONEXION CON mysql
+
+import mysql from "mysql";
+
+const db=mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"<password>",
+    database:"<database_name>",
+});
+
+----FIX AUTENTICATION ISSUES (OPTIONAL)
+
+dentro de mysql terminal, luego de autenticarte ingresa el siguiente codigo:
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Albralelie12@';
+
+
+---REALIZAR CONSULTA A MYSQL
+
+app.get("/books",(req,res)=>{
+    const select = "SELECT * FROM books";
+    db.query(select,(err,data)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.status(200).json({data})
+        }
+    })
+})
